@@ -11,7 +11,7 @@ Tested on Android Version - 5.1.1 - Physical Device
 - Notification and a toast message is displayed when shake is detected and the location is successfully registered
 
 #Known Issues
-- Runtime permissions for API 23 (Marshmallow) could not be implemented because of the lack of the device running Android 6.0 and emulator was too slow
+- Runtime permissions for API 23 (Marshmallow) could not be implemented because of the lack of the device running Android 6.0 and emulator was too slow <br>
 Solution - For devices running Marshmallow, permissions are to be granted manually in device settings.
 - If device is shaken when the application is open then application is to be paused and resumed to show updated markers since there were some issues in updating the view explicitly
 
