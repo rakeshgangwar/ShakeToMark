@@ -6,7 +6,6 @@ package com.rakeshgangwar.shaketomark.database;
 public class Locations {
     private String latitude;
     private String longitude;
-    private String time;
 
     public String getLatitude() {
         return latitude;
@@ -24,11 +23,4 @@ public class Locations {
         this.longitude = longitude;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
 }

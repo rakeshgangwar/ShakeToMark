@@ -18,7 +18,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String LOCATION_COLUMN_ID = "id";
     public static final String LOCATION_COLUMN_LATITUDE = "latitude";
     public static final String LOCATION_COLUMN_LONGITUDE = "longitude";
-    public static final String LOCATION_COLUMN_TIME = "time";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -28,7 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
                 "create table locations " +
-                        "(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,latitude text,longitude text,time text)"
+                        "(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,latitude text,longitude text)"
         );
     }
 
@@ -38,12 +37,11 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertCoordinates(String latitude, String longitude, String time){
+    public boolean insertCoordinates(String latitude, String longitude){
         SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
         contentValues.put("latitude",latitude);
         contentValues.put("longitude",longitude);
-        contentValues.put("time",time);
         sqLiteDatabase.insert(LOCATION_TABLE_NAME,null,contentValues);
         return true;
     }
@@ -54,14 +52,14 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
         Cursor cursor=sqLiteDatabase.rawQuery("select * from "+LOCATION_TABLE_NAME,null);
         cursor.moveToFirst();
-        while(cursor.isAfterLast()==false){
+        while(!cursor.isAfterLast()){
             Locations locations=new Locations();
             locations.setLatitude(cursor.getString(cursor.getColumnIndex(LOCATION_COLUMN_LATITUDE)));
             locations.setLongitude(cursor.getString(cursor.getColumnIndex(LOCATION_COLUMN_LONGITUDE)));
-            locations.setTime(cursor.getString(cursor.getColumnIndex(LOCATION_COLUMN_TIME)));
             arrayList.add(locations);
             cursor.moveToNext();
         }
+        cursor.close();
         return arrayList;
     }
 }
